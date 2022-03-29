@@ -25,6 +25,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
     "jsx": "react",
     "baseUrl": "."
   },

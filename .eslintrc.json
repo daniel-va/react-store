@@ -46,6 +46,9 @@
       "argsIgnorePattern": "^_"
     }],
 
+    // Allow empty interfaces.
+    "@typescript-eslint/no-empty-interface": "off",
+
     "react/jsx-tag-spacing": ["error", {
       // Require a space before closing a self-closing JSX element:
       //    <div />
