@@ -1,0 +1,63 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    // Require indentation of 2 spaces.
+    "indent": ["error", 2],
+
+    // Require single quotes.
+    "quotes": ["error", "single"],
+
+    // Require double quotes in JSX.
+    "jsx-quotes": ["error", "prefer-double"],
+
+    // Don't use semicolons.
+    "semi": ["error", "never"],
+
+    // Require dangling comma on multiline constructs.
+    "comma-dangle": ["error", "always-multiline" ],
+
+    // Require spaces around object:
+    //   { key1: value1, key2: value2 }
+    "object-curly-spacing": ["error", "always", {
+      "arraysInObjects": false,
+      "objectsInObjects": false
+    }],
+
+    // Disallow spaces around arrays:
+    //  [element1, element2, element3]
+    "array-bracket-spacing": ["error", "never"],
+
+    // Require parentheses around parameters in arrow functions:
+    //   (a, b, c) => expr
+    "arrow-parens": ["error", "always"],
+
+    // Ignore unused variables if prefixed with '_'.
+    "@typescript-eslint/no-unused-vars": ["warn", {
+      "varsIgnorePattern": "^_",
+      "argsIgnorePattern": "^_"
+    }],
+
+    "react/jsx-tag-spacing": ["error", {
+      // Require a space before closing a self-closing JSX element:
+      //    <div />
+      "beforeSelfClosing": "always",
+
+      // Disallow spaces before closing a normal JSX element:
+      //    <div>...</div>
+      "beforeClosing": "never"
+    }],
+
+    // Allow children to be passed as prob.
+    // This is almost a necessity if we want to pass function variables as children.
+    "react/no-children-prop": "off"
+  }
+}

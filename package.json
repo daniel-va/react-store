@@ -1,0 +1,52 @@
+{
+  "name": "@daniel-va/react-store",
+  "version": "0.0.1",
+  "description": "Model based state management for React.",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "repository": "https://github.com/daniel-va/react-form",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.3",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@types/enzyme": "^3.10.11",
+    "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "@types/styled-components": "^5.1.24",
+    "@typescript-eslint/eslint-plugin": "5.16.0",
+    "@typescript-eslint/parser": "5.16.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+    "enzyme": "^3.11.0",
+    "eslint": "8.12.0",
+    "eslint-config-next": "^12.1.1",
+    "eslint-plugin-import": "2.25.4",
+    "jest": "^27.5.1",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.70.1",
+    "rollup-plugin-ts": "^2.0.5",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^9.0.0",
+    "typescript": "4.6.3",
+    "react-test-renderer": "^17.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/daniel-va"
+  }
+}
