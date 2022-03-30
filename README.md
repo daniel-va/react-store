@@ -1,3 +1,2 @@
-# react-form
-
-a react form library
+# react-store
+Simple react state management.

@@ -1,9 +1,11 @@
 
+export { type Store } from 'src/Store'
+
 export {
-  type Model as StoreModel,
-  type Store,
-  type ModelStore,
   createStore,
-  createModelStore,
-} from 'src/Store'
-export * from 'src/hooks'
+  getStoreInternals,
+  type StoreInternals,
+} from 'src/createStore'
+
+export { useStore } from 'src/hooks/useStore'
+export { useStoreState } from 'src/hooks/useStoreState'
