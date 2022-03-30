@@ -1,6 +1,6 @@
 {
   "name": "@daniel-va/react-store",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Model based state management for React.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -11,7 +11,8 @@
   "scripts": {
     "build": "rollup -c",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "npx eslint src && tsc --noemit"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.3",
@@ -27,8 +28,9 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "enzyme": "^3.11.0",
     "eslint": "8.12.0",
-    "eslint-config-next": "^12.1.1",
     "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "jest": "^27.5.1",
     "npm-run-all": "^4.1.5",
     "react": "^17.0.2",

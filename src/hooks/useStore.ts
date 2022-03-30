@@ -1,72 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/rules-of-hooks */
 
-import { useEffect, useState } from 'react'
-import {
-  addStoreListener,
-  getStoreInternals,
-  removeStoreListener,
-} from '../createStore'
-import { Store } from '../Store'
+import { useContext, useMemo } from 'react'
+import StoreContext from '../components/StoreContext'
+import { Store, Stores } from '../index'
+import { Actions, ActionsOf, isStore } from '../Store'
 
-/**
- * Hooks that runs and observes a stores actions.
- *
- * Note that only read-only actions are supported.
- * Updates will cause an error.
- *
- * @param store The store to run actions on.
- *
- * @returns The actions of `store`.
- *          Running an action will cause the component to rerender whenever
- *          the state updates, and when the actions arguments change.
- */
-export const useStore = <STORE extends Store<any>>(store: STORE): HookActions<STORE> => {
-  const internals = getStoreInternals(store)
-  // if (hookActionsKey in internals) {
-  //   return internals[hookActionsKey]
-  // }
-
-  const actions = {} as HookActions<STORE>
-  for (const key of Object.keys(store)) {
-    if (typeof key !== 'string') {
-      // Skip the private key and other potential symbol keys
-      continue
+export function useStore(): { [K in keyof Stores]: ActionsOf<Stores[K]> }
+export function useStore<STORE extends Store<any, any>>(store: STORE): ActionsOf<STORE>
+export function useStore<ACTIONS extends Actions>(actions: ACTIONS): ACTIONS
+export function useStore<STORE extends Store<any, any>>(store?: STORE | ActionsOf<STORE>): unknown {
+  const context = useContext(StoreContext)
+  return useMemo(() => {
+    if (context === null) {
+      throw new Error('store context has not been initialized correctly')
     }
-    const runAction = (input: unknown[]): unknown => {
-      const { update } = internals
-      internals.update = throwUpdateError
-      const result = store[key](...input)
-      internals.update = update
-      return result
+    if (store === undefined) {
+      return context.actions
     }
-
-    (actions as any)[key as keyof STORE] = function useAction(...input: unknown[]): unknown {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [result, setResult] = useState(() => [runAction(input)])
-
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        const listener = () => {
-          setResult([runAction(input)])
-        }
-        addStoreListener(store, listener)
-        return () => removeStoreListener(store, listener)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [...input])
-
-      return result[0]
+    if (isStore(store)) {
+      const internals = context.storeMapping.get(store)
+      if (internals === undefined) {
+        throw new Error('store is not registered')
+      }
+      return internals.hooks
     }
-  }
-  internals[hookActionsKey] = actions
-  return actions
-}
-
-type HookActions<STORE extends Store<any>> = {
-  [K in keyof STORE]: STORE[K]
-}
-
-const hookActionsKey = Symbol('store/hookActions')
-
-const throwUpdateError = () => {
-  throw new Error('can\'t run store updates in a hook')
+    const internals = context.actionMapping.get(store as ActionsOf<STORE>)
+    if (internals === undefined) {
+      throw new Error('store is not registered')
+    }
+    return internals.hooks
+  }, [context, store])
 }
